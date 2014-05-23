@@ -2,4 +2,4 @@ site :opscode
 
 metadata
 cookbook 'python', github: 'poise/python'
-cookbook 'cron', github: 'opscode-cookbooks/cron'
+cookbook 'cron', github: 'opscode/cron'
