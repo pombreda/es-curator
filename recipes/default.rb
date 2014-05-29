@@ -30,6 +30,6 @@ python_pip "elasticsearch-curator"
 # schedule cron
 cron_d 'es-curator' do
   minute  0
-  hour    09
-  command '/usr/local/bin/curator --host #{node['elasticsearch-currator']['elasticsearch_server']} -d #{node['elasticsearch-currator']['days_to_keep']}'
+  hour    "#{node['elasticsearch-curator']['hour_to_run']}"
+  command "/usr/local/bin/curator --host #{node['elasticsearch-curator']['elasticsearch_server']} -d #{node['elasticsearch-curator']['days_to_keep']}"
 end
