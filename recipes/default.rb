@@ -41,7 +41,7 @@ end
 
 # schedule optimizations
 if (!node['elasticsearch-curator']['optimize_indices_older_than'].nil?)
-  cron_d 'es-curator-delete' do
+  cron_d 'es-curator-optimize' do
     minute  0
     hour    "#{node['elasticsearch-curator']['hour_to_run']}"
     command "/usr/local/bin/curator optimize --older-than #{node['elasticsearch-curator']['optimize_indices_older_than']} --host #{node['elasticsearch-curator']['elasticsearch_server']}"
