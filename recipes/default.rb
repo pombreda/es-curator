@@ -51,7 +51,7 @@ end
 # schedule backups
 if (!node['elasticsearch-curator']['snapshot_repository'].nil?)
   cron_d 'es-curator-backup' do
-  	weekday "#{node['elasticsearch-curator']['backup_weekday']}"
+  	weekday #{node['elasticsearch-curator']['backup_weekday']}
     minute  0
     hour    "#{node['elasticsearch-curator']['hour_to_run']}"
     command "/usr/local/bin/curator snapshot --host #{node['elasticsearch-curator']['elasticsearch_server']} --repository #{node['elasticsearch-curator']['snapshot_repository']}"
