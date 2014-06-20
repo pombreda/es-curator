@@ -24,12 +24,36 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# curator requires argparse
+python_pip "argparse"
+
 # install latest currator into system path
 python_pip "elasticsearch-curator"
 
-# schedule cron
-cron_d 'es-curator' do
-  minute  0
-  hour    "#{node['elasticsearch-curator']['hour_to_run']}"
-  command "/usr/local/bin/curator --host #{node['elasticsearch-curator']['elasticsearch_server']} -d #{node['elasticsearch-curator']['days_to_keep']}"
+# schedule deletions
+if {node['elasticsearch-curator']['days_to_keep']} 
+  cron_d 'es-curator-delete' do
+    minute  0
+    hour    "#{node['elasticsearch-curator']['hour_to_run']}"
+    command "/usr/local/bin/curator delete --older-than #{node['elasticsearch-curator']['days_to_keep']} --host #{node['elasticsearch-curator']['elasticsearch_server']}"
+  end
+end
+
+# schedule optimizations
+if {node['elasticsearch-curator']['optimize_indices_older_than']} 
+  cron_d 'es-curator-delete' do
+    minute  0
+    hour    "#{node['elasticsearch-curator']['hour_to_run']}"
+    command "/usr/local/bin/curator optimize --older-than #{node['elasticsearch-curator']['optimize_indices_older_than']} --host #{node['elasticsearch-curator']['elasticsearch_server']}"
+  end
+end
+
+# schedule backups
+if {node['elasticsearch-curator']['snapshot_repository']} 
+  cron_d 'es-curator-backup' do
+  	weekday :saturday
+    minute  0
+    hour    "#{node['elasticsearch-curator']['hour_to_run']}"
+    command "/usr/local/bin/curator snapshot --host #{node['elasticsearch-curator']['elasticsearch_server']} --repository #{node['elasticsearch-curator']['snapshot_repository']}"
+  end
 end
