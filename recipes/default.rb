@@ -31,7 +31,7 @@ python_pip "argparse"
 python_pip "elasticsearch-curator"
 
 # schedule deletions
-if {node['elasticsearch-curator']['days_to_keep']} 
+if node['elasticsearch-curator']['days_to_keep']
   cron_d 'es-curator-delete' do
     minute  0
     hour    "#{node['elasticsearch-curator']['hour_to_run']}"
@@ -40,7 +40,7 @@ if {node['elasticsearch-curator']['days_to_keep']}
 end
 
 # schedule optimizations
-if {node['elasticsearch-curator']['optimize_indices_older_than']} 
+if node['elasticsearch-curator']['optimize_indices_older_than']
   cron_d 'es-curator-delete' do
     minute  0
     hour    "#{node['elasticsearch-curator']['hour_to_run']}"
@@ -49,7 +49,7 @@ if {node['elasticsearch-curator']['optimize_indices_older_than']}
 end
 
 # schedule backups
-if {node['elasticsearch-curator']['snapshot_repository']} 
+if node['elasticsearch-curator']['snapshot_repository']
   cron_d 'es-curator-backup' do
   	weekday :saturday
     minute  0
