@@ -1,5 +1,5 @@
 name             'es-curator'
-maintainer       '=David F. Severski'
+maintainer       'David F. Severski'
 maintainer_email 'davidski@deadheavn.com'
 license          'MIT'
 description      'Installs/Configures es-curator'
