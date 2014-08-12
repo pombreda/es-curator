@@ -34,7 +34,7 @@ python_pip "elasticsearch-curator"
 cron_d 'es-curator-delete' do
   action node['elasticsearch-curator'].attribute?(:days_to_keep) ? :create : :delete
   minute  0
-  hour    "#{node['elasticsearch-curator']['hour_to_run']}"
+  hour    #{node['elasticsearch-curator']['hour_to_run']}
   command "/usr/local/bin/curator -t #{node['elasticsearch-curator']['timeout']} --host #{node['elasticsearch-curator']['elasticsearch_server']} delete --older-than #{node['elasticsearch-curator']['days_to_keep']}"
 end
 
@@ -42,15 +42,15 @@ end
 cron_d 'es-curator-optimize' do
   action node['elasticsearch-curator'].attribute?(:optimize_indices_after) ? :create : :delete
   minute  0
-  hour    "#{node['elasticsearch-curator']['hour_to_run']}"
+  hour    #{node['elasticsearch-curator']['hour_to_run']}
   command "/usr/local/bin/curator -t #{node['elasticsearch-curator']['timeout']} --host #{node['elasticsearch-curator']['elasticsearch_server']} optimize --older-than #{node['elasticsearch-curator']['optimize_indices_after']}"
 end
 
 # schedule backups
 cron_d 'es-curator-backup' do
   action node['elasticsearch-curator'].attribute?(:snapshot_repository) ? :create : :delete
-  weekday "#{node['elasticsearch-curator']['backup_weekday']}"
+  weekday #{node['elasticsearch-curator']['backup_weekday']}
   minute  0
-  hour    "#{node['elasticsearch-curator']['hour_to_run']}"
+  hour    #{node['elasticsearch-curator']['hour_to_run']}
   command "/usr/local/bin/curator -t #{node['elasticsearch-curator']['timeout']} --host #{node['elasticsearch-curator']['elasticsearch_server']} snapshot --repository #{node['elasticsearch-curator']['snapshot_repository']}"
 end
