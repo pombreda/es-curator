@@ -10,3 +10,4 @@ default['elasticsearch-curator']['optimize_indices_after'] =  nil
 default['elasticsearch-curator']['snapshot_repository'] =     nil
 default['elasticsearch-curator']['backup_weekday'] =          '6'
 default['elasticsearch-curator']['timeout'] =                 '900'
+default['elasticsearch-curator']['backup_indicies_older_than'] = 2
