@@ -54,5 +54,5 @@ cron_d 'es-curator-backup' do
   weekday #{node['elasticsearch-curator']['backup_weekday']}
   minute  0
   hour    #{node['elasticsearch-curator']['hour_to_run']}
-  command "/usr/local/bin/curator --timeout #{node['elasticsearch-curator']['timeout']} --host #{node['elasticsearch-curator']['elasticsearch_server']} snapshot --repository #{node['elasticsearch-curator']['snapshot_repository']} --older-than #{node['elasticsearch-curator']['backup_indicies_older_than']}"
+  command "/usr/local/bin/curator --timeout #{node['elasticsearch-curator']['timeout']} --host #{node['elasticsearch-curator']['elasticsearch_server']} snapshot --repository #{node['elasticsearch-curator']['snapshot_repository']} --older-than #{node['elasticsearch-curator']['backup_indicies_older_than']} --delete-older-than #{node['elasticsearch-curator']['delete_snapshots_older_than']}"
 end
