@@ -24,6 +24,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# require python to ensure pip is available
+include_recipe "python::default"
+
 # curator requires argparse
 python_pip "argparse"
 

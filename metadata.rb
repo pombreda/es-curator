@@ -4,7 +4,7 @@ maintainer_email 'davidski@deadheavn.com'
 license          'MIT'
 description      'Installs/Configures es-curator'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.2.0'
+version          '0.2.1'
 
 depends 'python', '~> 1.4.6'
 depends 'cron', '~> 1.6.1'
